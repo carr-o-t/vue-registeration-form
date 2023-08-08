@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue 3 basics</title>
+
+    <style>
+      #app {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      h2 {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #42b883;
+        margin-bottom: 1rem;
+        text-align: center;
+      }
+      form,
+      .form-data {
+        width: 320px;
+        height: fit-content;
+        padding: 1rem;
+        border: 1px solid gray;
+        border-radius: 1em;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        box-sizing: border-box;
+      }
+      form > label {
+        text-transform: capitalize;
+        color: rgb(62, 62, 62);
+        font-weight: 500;
+      }
+      form > label > input {
+        width: 100%;
+        margin-top: 0.5rem;
+        height: 30px;
+        border-radius: 0.5em;
+        border: 1px solid;
+        padding: 0 0.5rem;
+        box-sizing: border-box;
+      }
+      form > label > input:focus-visible {
+        outline: none;
+        border: 1px solid #42b883;
+      }
+      form > button[type="submit"] {
+        width: 100%;
+        height: 40px;
+        border-radius: 0.5em;
+        border: 1px solid #42b883;
+        background-color: #42b883;
+        color: white;
+        font-weight: 700;
+        text-align: center;
+        cursor: pointer;
+      }
+      form > button[type="submit"]:focus-visible {
+        outline: none;
+        border: 1px solid #1f5f42;
+      }
+      [v-cloak] {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app" v-cloak>
+      <div class="form-container">
+        <h2 v-if="!isFormSubmitted">Registration form</h2>
+        <h2 v-if="isFormSubmitted">Registration done</h2>
+        <form
+          action="#"
+          method="post"
+          @submit.prevent="onSubmit"
+          v-if="!isFormSubmitted"
+        >
+          <label for="first-name">
+            first name
+            <input v-model="firstName" type="text" name="first-name" required />
+          </label>
+          <label for="last-name">
+            last name
+            <input v-model="lastName" type="text" name="last-name" required />
+          </label>
+          <label for="email">
+            email
+            <input v-model="email" type="email" name="email" required />
+          </label>
+          <label for="password">
+            password
+            <input
+              v-model="password"
+              type="password"
+              name="password"
+              required
+            />
+          </label>
+
+          <button type="submit">Register</button>
+        </form>
+        <div class="form-data" v-if="isFormSubmitted">
+          <label for="first-name">
+            first name:
+            <span class="">{{firstName}}</span>
+          </label>
+          <label for="last-name">
+            last name:
+            <span class="">{{lastName}}</span>
+          </label>
+          <label for="email">
+            email:
+            <span class="">{{email}}</span>
+          </label>
+          <label for="password">
+            password:
+            <span class="">{{password}}</span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <script>
+      let app = Vue.createApp({
+        data: function () {
+          return {
+            firstName: "",
+            lastName: "",
+            email: "",
+            password: "",
+            isFormSubmitted: false,
+          };
+        },
+
+        methods: {
+          onSubmit() {
+            this.isFormSubmitted = true;
+          },
+        },
+      });
+      app.mount("#app");
+    </script>
+  </body>
+</html>
